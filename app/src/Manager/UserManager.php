@@ -24,4 +24,15 @@ class UserManager extends BaseManager
 
         return $users;
     }
+
+    public function register(User $user): void
+    {
+        $query = $this->pdo->prepare("INSERT INTO User (username, email, password) VALUES (:username, :email, :password)");
+        $query->execute([
+            "username" => $user->getUsername(),
+            "email" => $user->getEmail(),
+            "password" => $user->getHashedPassword(),
+            
+        ]);
+    }
 }
