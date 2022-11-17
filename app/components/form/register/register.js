@@ -1,4 +1,4 @@
-console.log("auth is ready to go");
+const submitBtn = document.getElementsByClassName("form_submit-btn")[0];
 const usernameInput = document.getElementsByClassName("form_username-input")[0];
 const firstNameInput = document.getElementsByClassName(
   "form_first-name-input"
@@ -20,8 +20,7 @@ const errorMsg = document.getElementsByClassName("form_error-msg")[0];
 // add event listener to the form
 // if any input is empty, disable the submit button
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+const checkInputs = () => {
   if (
     usernameInput.value === "" ||
     firstNameInput.value === "" ||
@@ -49,24 +48,19 @@ form.addEventListener("submit", (e) => {
     errorMsg.innerHTML =
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
   }
+  submitBtn.setAttribute("disabled", "disabled");
 
-  let registerData = new FormData();
-  form.append("username", usernameInput.value);
-  form.append("firstName", firstNameInput.value);
-  form.append("lastName", lastNameInput.value);
-  form.append("email", emailInput.value);
-  form.append("password", passwordInput.value);
-  form.append("gender", genderInput.value);
-  form.append("role", roleInput.value);
-  fetch("/api/register", {
-    method: "POST",
-    body: registerData,
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      // log http response
-      console.log(
-        `Response: ${data.status} ${data.statusText} ${data.message}`
-      );
-    });
+  setTimeout(() => {
+    errorMsg.innerHTML = "";
+    submitBtn.removeAttribute("disabled");
+  }, 3000);
+};
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  checkInputs();
+});
+
+submitBtn.addEventListener("mouseover", () => {
+  checkInputs();
 });

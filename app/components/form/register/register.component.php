@@ -2,19 +2,19 @@
     <h1>Inscription : </h1>
 
     <label for="email">Email :
-        <input class="form_email-input" type="email" name="email">
+        <input class="form_input form_email-input" type="email" name="email">
     </label>
 
     <label for="username">Username :
-        <input class="form_username-input" type="text" name="username">
+        <input class="form_input form_username-input" type="text" name="username">
     </label>
 
     <label for="firstName"> First Name :
-        <input class="form_first-name-input" type="text" name="firstName">
+        <input class="form_input form_first-name-input" type="text" name="firstName">
     </label>
 
     <label for="lastName"> Last Name :
-        <input class="form_last-name-input" type="text" name="lastName">
+        <input class="form_input form_last-name-input" type="text" name="lastName">
     </label>
 
     <label for="gender">Gender:
@@ -26,12 +26,12 @@
     </label>
 
     <label for="password">Password :
-        <input class="form_password-input" type="password" name="password">
+        <input class="form_input form_password-input" type="password" name="password">
     </label>
 
 
     <label for="confirm">Confirm password :
-        <input class="form_password-confirm-input" type="password" name="confirm">
+        <input class="form_input form_password-confirm-input" type="password" name="confirm">
     </label>
 
     <label for="gender">Role:
@@ -49,5 +49,5 @@
 </form>
 
 <script>
-<?php require_once(dirname(__DIR__, 2) . "/form/register/register.js"); ?>
+    <?php require_once(dirname(__DIR__, 2) . "/form/register/register.js"); ?>
 </script>
