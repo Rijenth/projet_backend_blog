@@ -47,3 +47,7 @@
     <hr />
     <button onclick="window.location.href = '/login'">Se connecter</button>
 </form>
+
+<script>
+<?php require_once(dirname(__DIR__, 2) . "/form/register/register.js"); ?>
+</script>

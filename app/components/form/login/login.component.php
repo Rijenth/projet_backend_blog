@@ -12,4 +12,6 @@
 </form>
 
 
-<script src="./login.js"></script>
+<script src=<?php
+            echo dirname(__DIR__, 2) . "./components/form/login/login.js";
+            ?>></script>

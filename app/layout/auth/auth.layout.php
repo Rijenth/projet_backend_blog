@@ -25,7 +25,7 @@
             ?>
         </div>
     </main>
-    <script src="./auth.js"></script>
+
 </body>
 
 </html>

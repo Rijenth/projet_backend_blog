@@ -1,36 +1,27 @@
-const usernameInput = document.getElementsByClassName(
-  "form_register_username-input"
-)[0];
+console.log("auth is ready to go");
+const usernameInput = document.getElementsByClassName("form_username-input")[0];
 const firstNameInput = document.getElementsByClassName(
-  "form_register_first-name-input"
+  "form_first-name-input"
 )[0];
 const lastNameInput = document.getElementsByClassName(
-  "form_register_last-name-input"
+  "form_last-name-input"
 )[0];
-const emailInput = document.getElementsByClassName(
-  "form_register_email-input"
-)[0];
-const passwordInput = document.getElementsByClassName(
-  "form_register_password-input"
-)[0];
+const emailInput = document.getElementsByClassName("form_email-input")[0];
+const passwordInput = document.getElementsByClassName("form_password-input")[0];
 const passwordConfirmInput = document.getElementsByClassName(
-  "form_register_password-confirm-input"
+  "form_password-confirm-input"
 )[0];
-const genderInput = document.getElementsByClassName(
-  "form_register_gender-inputs"
-)[0];
-const isAdminInput = document.getElementsByClassName(
-  "form_register_is-admin-input"
-)[0];
+const genderInput = document.getElementsByClassName("form_gender-inputs")[0];
+const isAdminInput = document.getElementsByClassName("form_is-admin-input")[0];
 const isModeratorInput = document.getElementsByClassName(
-  "form_register_is-moderator-input"
+  "form_is-moderator-input"
 )[0];
 const isSimpleUserInput = document.getElementsByClassName(
-  "form_register_is-simple-user-input"
+  "form_is-simple-user-input"
 )[0];
 const form = document.getElementsByClassName("form_register")[0];
 
-const errorMsg = document.getElementsByClassName("form_register_error-msg")[0];
+const errorMsg = document.getElementsByClassName("form_error-msg")[0];
 
 // add event listener to the form
 // if any input is empty, disable the submit button
