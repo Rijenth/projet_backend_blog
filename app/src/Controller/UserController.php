@@ -8,7 +8,6 @@ use App\Route\Route;
 
 class UserController extends AbstractController
 {
-
     public function home()
     {
         $manger = new UserManager(new PDOFactory());
