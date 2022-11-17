@@ -31,17 +31,20 @@ const checkInputs = () => {
   ) {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please fill out all fields";
+    return false;
   }
   // if the password and password confirm inputs don't match, change the error message
   if (passwordInput.value !== passwordConfirmInput.value) {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Passwords don't match";
+    return false;
   }
   // add regex to check if the email is valid
   // if it's not, change the error message
   if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please enter a valid email";
+    return false;
   }
   // regex for password
   // if it's not valid, change the error message
@@ -51,17 +54,40 @@ const checkInputs = () => {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML =
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
+    return false;
   }
 
   setTimeout(() => {
     errorMsg.innerHTML = "";
     submitBtn.removeAttribute("disabled");
   }, 3000);
+  return true;
 };
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  checkInputs();
+  // do the default action if all inputs are valid
+  if (checkInputs()) {
+    let registerData = new FormData();
+    registerData.append("username", usernameInput.value);
+    registerData.append("firstName", firstNameInput.value);
+    registerData.append("lastName", lastNameInput.value);
+    registerData.append("email", emailInput.value);
+    registerData.append("password", passwordInput.value);
+    // gender and role are select inputs with options
+    registerData.append("gender", genderInput.value);
+    registerData.append("role", roleInput.value);
+    fetch("/api/register", {
+      method: "POST",
+      body: registerData,
+
+      // if the response is ok, redirect to the login page
+    }).then((res) => {
+      if (res.ok) {
+        window.location.href = "/login";
+      }
+    });
+  }
 });
 
 submitBtn.addEventListener("mouseover", () => {
