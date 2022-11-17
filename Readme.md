@@ -3,6 +3,6 @@
 ## Groupe
 | Prénom  | Nom      |
 | ------- | -------- |
-| Rijenth | ...      |
+| Rijenth | Arumainathan |
 | Kader   | Bakayoko |
 | Ethan   | Videau   |
