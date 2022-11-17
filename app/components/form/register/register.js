@@ -21,6 +21,7 @@ const errorMsg = document.getElementsByClassName("form_error-msg")[0];
 // if any input is empty, disable the submit button
 
 form.addEventListener("submit", (e) => {
+  e.preventDefault();
   if (
     usernameInput.value === "" ||
     firstNameInput.value === "" ||
@@ -29,18 +30,15 @@ form.addEventListener("submit", (e) => {
     passwordInput.value === "" ||
     passwordConfirmInput.value === ""
   ) {
-    e.preventDefault();
     errorMsg.innerHTML = "Please fill out all fields";
   }
   // if the password and password confirm inputs don't match, change the error message
   if (passwordInput.value !== passwordConfirmInput.value) {
-    e.preventDefault();
     errorMsg.innerHTML = "Passwords don't match";
   }
   // add regex to check if the email is valid
   // if it's not, change the error message
   if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-    e.preventDefault();
     errorMsg.innerHTML = "Please enter a valid email";
   }
   // regex for password
@@ -48,11 +46,10 @@ form.addEventListener("submit", (e) => {
   if (
     !passwordInput.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
   ) {
-    e.preventDefault();
     errorMsg.innerHTML =
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
   }
-  // do not prevent default
+
   fetch("/api/register", {
     method: "POST",
     headers: {
