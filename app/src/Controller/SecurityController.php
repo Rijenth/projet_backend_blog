@@ -13,14 +13,21 @@ class SecurityController extends AbstractController
     public function login()
     {
         $manger = new UserManager(new PDOFactory());
-        $this->render("login.php", ["posts" => $user], "Tous les posts");
+        $user = $manger->getAllUsers();
+        $this->render("auth/auth.layout.php", ["posts" => $user], "Tous les posts");
+        $view = dirname(__DIR__, 2) . '/components/form/login/login.component.php';
+        require_once $view;
+
     }
 
     #[Route('/register', name :'register', methods: ['GET'])]
     public function register()
     {
         $manger = new UserManager(new PDOFactory());
-        $this->render("home.php", ["posts" => $posts], "Tous les posts");
+        $user = $manger->getAllUsers();
+        $this->render("auth/auth.layout.php", ["posts" => $user], "Tous les posts");
+        $view = dirname(__DIR__, 2) . '/components/form/register/register.component.php';
+        require_once $view;
 
 
     }

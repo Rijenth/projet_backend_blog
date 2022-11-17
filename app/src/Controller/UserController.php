@@ -9,7 +9,6 @@ use App\Route\Route;
 class UserController extends AbstractController
 {
 
-    #[Route('/', name:'home', methods: ['GET'])]
     public function home()
     {
         $manger = new UserManager(new PDOFactory());

@@ -1,6 +1,7 @@
-<?
+<?php
 // This page is the layout of both the login and register pages
 // the title of the page is set in the controller
+echo 'pute'
 ?>
 <!DOCTYPE html>
 <html lang="en">

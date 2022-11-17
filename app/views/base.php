@@ -1,1 +1,1 @@
-<? echo 'yolo';
+<? echo 'base';
