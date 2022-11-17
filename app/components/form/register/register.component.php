@@ -1,4 +1,4 @@
-<form method="post" action="#" class="form_register">
+<form method="post" action="/register" class="form_register">
     <h1>Inscription : </h1>
 
     <label for="email">Email :

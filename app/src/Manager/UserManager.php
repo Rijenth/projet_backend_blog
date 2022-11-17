@@ -70,7 +70,7 @@ class UserManager extends BaseManager
             "username" => $user->getUsername(),
             "email" => $user->getEmail(),
             "password" => $user->getHashedPassword(),
-            
+
         ]);
     }
 }
