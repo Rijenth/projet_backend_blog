@@ -27,12 +27,11 @@ class UserController extends AbstractController
 
         try {
             $manager->register($user);
-
-            return http_response_code(201);
-            
         } catch (\PDOException $e) 
         {
-            return http_response_code(500);
+            return http_response_code(500, "Erreur lors de l'inscription");
         }
+
+        return http_response_code(201);
     }
 }
