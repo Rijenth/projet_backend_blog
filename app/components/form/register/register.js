@@ -12,13 +12,7 @@ const passwordConfirmInput = document.getElementsByClassName(
   "form_password-confirm-input"
 )[0];
 const genderInput = document.getElementsByClassName("form_gender-inputs")[0];
-const isAdminInput = document.getElementsByClassName("form_is-admin-input")[0];
-const isModeratorInput = document.getElementsByClassName(
-  "form_is-moderator-input"
-)[0];
-const isSimpleUserInput = document.getElementsByClassName(
-  "form_is-simple-user-input"
-)[0];
+const roleInput = document.getElementsByClassName("form_role-inputs")[0];
 const form = document.getElementsByClassName("form_register")[0];
 
 const errorMsg = document.getElementsByClassName("form_error-msg")[0];
@@ -58,4 +52,28 @@ form.addEventListener("submit", (e) => {
     errorMsg.innerHTML =
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
   }
+  // do not prevent default
+  fetch("/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: usernameInput.value,
+      firstName: firstNameInput.value,
+      lastName: lastNameInput.value,
+      email: emailInput.value,
+      password: passwordInput.value,
+      gender: genderInput.options[genderInput.selectedIndex].value,
+      role: roleInput.options[roleInput.selectedIndex].value,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
+        errorMsg.innerHTML = data.error;
+      } else {
+        window.location.href = "/login";
+      }
+    });
 });
