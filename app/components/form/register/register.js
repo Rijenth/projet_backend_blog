@@ -29,15 +29,18 @@ const checkInputs = () => {
     passwordInput.value === "" ||
     passwordConfirmInput.value === ""
   ) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please fill out all fields";
   }
   // if the password and password confirm inputs don't match, change the error message
   if (passwordInput.value !== passwordConfirmInput.value) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Passwords don't match";
   }
   // add regex to check if the email is valid
   // if it's not, change the error message
   if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please enter a valid email";
   }
   // regex for password
@@ -45,10 +48,10 @@ const checkInputs = () => {
   if (
     !passwordInput.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
   ) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML =
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
   }
-  submitBtn.setAttribute("disabled", "disabled");
 
   setTimeout(() => {
     errorMsg.innerHTML = "";
