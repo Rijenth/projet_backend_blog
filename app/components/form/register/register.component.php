@@ -44,4 +44,6 @@
 
     <p class="form_error-msg"></p>
     <button type="submit" class="form_submit-btn">Envoyer</button>
+    <hr />
+    <button onclick="window.location.href = '/login'">Se connecter</button>
 </form>

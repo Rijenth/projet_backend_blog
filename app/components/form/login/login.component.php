@@ -7,6 +7,9 @@
 
     <p class="form_error-message"></p>
     <button class="form_submit-btn">Envoyer</button>
+    <hr />
+    <button onclick="window.location.href = '/register';">Créer un compte</button>
 </form>
+
 
 <script src="./login.js"></script>
