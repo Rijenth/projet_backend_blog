@@ -12,10 +12,12 @@ class PostController extends AbstractController
     #[Route('/', name: 'home', methods: ['GET'])]
     public function home()
     {
-        $manger = new PostManager(new PDOFactory());
-        $posts = $manger->getAllPosts();
-        $view = dirname(__DIR__, 2) . '/components/form/reg';
-        require_once $view;
-        $this->render("home.php", ["posts" => $posts], "Tous les posts");
+        $view = dirname(__DIR__, 2) . '/layout/blog/blog.layout.php';
+        $this->render(
+            $view,
+            [
+                "pageTitle" => "Home",
+            ],
+        );
     }
 }
