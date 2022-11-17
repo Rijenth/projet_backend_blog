@@ -12,11 +12,14 @@ class SecurityController extends AbstractController
     #[Route('/login', name: 'login', methods: ['GET'])]
     public function login()
     {
-        $manger = new UserManager(new PDOFactory());
-        $user = $manger->getAllUsers();
-        $this->render("auth/auth.layout.php", ["posts" => $user], "Tous les posts");
         $view = dirname(__DIR__, 2) . '/layout/auth/auth.layout.php';
-        require_once $view;
+        $this->render(
+            $view,
+            [
+                "authForm" => dirname(__DIR__, 2) . "/components/form/login/login.component.php",
+                "pageTitle" => "Login",
+            ],
+        );
     }
 
     #[Route('/register', name: 'register', methods: ['GET'])]
@@ -24,8 +27,6 @@ class SecurityController extends AbstractController
     {
 
         $view = dirname(__DIR__, 2) . '/layout/auth/auth.layout.php';
-        $manger = new UserManager(new PDOFactory());
-        $user = $manger->getAllUsers();
         $this->render(
             $view,
             [

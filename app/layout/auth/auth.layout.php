@@ -8,6 +8,7 @@
     <title>
         <? echo $args['pageTitle'] ?>
     </title>
+    <link rel="stylesheet" href="../../styles/globals.css" />
 </head>
 
 <body>
@@ -21,7 +22,6 @@
             <!-- Un des deux formulaire dispo dans components/form -->
             <?
             require_once $args['authForm'];
-
             ?>
         </div>
     </main>
