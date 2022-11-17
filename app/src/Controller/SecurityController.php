@@ -22,8 +22,8 @@ class SecurityController extends AbstractController
         );
     }
 
-    #[Route('/register', name: 'register', methods: ['GET'])]
-    public function register()
+    #[Route('/register', name: 'registerView', methods: ['GET'])]
+    public function registerView()
     {
 
         $view = dirname(__DIR__, 2) . '/layout/auth/auth.layout.php';
@@ -35,5 +35,11 @@ class SecurityController extends AbstractController
             ],
         );
         require_once $view;
+    }
+
+    #[Route('/register', name: 'registerToDatabase', methods: ['POST'])]
+    public function registerToDatabase()
+    {
+        //
     }
 }
