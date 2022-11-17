@@ -25,40 +25,30 @@ class UserManager extends BaseManager
         return $users;
     }
 
-    public function UserNameExist($name, $email)
+    public function UserNameExist(User $user)
     {
-        $query = $this->pdo->query("SELECT * FROM users WHERE username = ? OR email = ?;");
-        $query->execute([$name, $email]);
+        $query = $this->pdo->query("SELECT * FROM users WHERE username = ?;");
+        $query->execute([
+            "username" => $user->getUsername(),
+        ]);
         $data = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($data) {
-            return $data;
+            return true;
         } else {
             return false;
         }
     }
 
-    function pwdMatch($password, $pwdcheck)
+    public function login(User $user,$uid, $pwd)
     {
-        if ($password == $pwdcheck) {
-            $result = false;
-        } else {
-            $result = true;
-        }
-    }
-
-    /**
-     * @return User[]
-     */
-    public function login($uid, $pwd): array
-    {
-        $uidExist = $this->UserNameExist($uid, $uid);
+        $uidExist = $this->UserNameExist($uid);
 
         if ($uidExist === false) {
             header("location: ../login.php?error=wrongLogin");
             exit();
         }
-        $pwdHashed = $uidExist['password'];
+        $pwdHashed = $user->getHashedPassword();
         $checkPass = password_verify($pwd, $pwdHashed);
 
 
@@ -67,11 +57,20 @@ class UserManager extends BaseManager
             exit();
         } else if ($checkPass === true) {
             session_start();
-            $_SESSION["userid"] = $uidExist['id'];
-            $_SESSION["useruid"] = $uidExist['username'];
-            header("location: ../index.php");
+            $_SESSION["userid"] = $user->getId();
+            $_SESSION["useruid"] = $user->getUsername();
+            header("location: /");
             exit();
         }
-        return $uidExist;
+    }
+    public function register(User $user): void
+    {
+        $query = $this->pdo->prepare("INSERT INTO User (username, email, password) VALUES (:username, :email, :password)");
+        $query->execute([
+            "username" => $user->getUsername(),
+            "email" => $user->getEmail(),
+            "password" => $user->getHashedPassword(),
+            
+        ]);
     }
 }

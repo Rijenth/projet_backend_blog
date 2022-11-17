@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Route\Route;
 use App\Factory\PDOFactory;
 use App\Manager\UserManager;
@@ -35,11 +36,5 @@ class SecurityController extends AbstractController
             ],
         );
         require_once $view;
-    }
-
-    #[Route('/register', name: 'registerToDatabase', methods: ['POST'])]
-    public function registerToDatabase()
-    {
-        //
     }
 }
