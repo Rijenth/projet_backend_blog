@@ -50,27 +50,23 @@ form.addEventListener("submit", (e) => {
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
   }
 
+  let registerData = new FormData();
+  form.append("username", usernameInput.value);
+  form.append("firstName", firstNameInput.value);
+  form.append("lastName", lastNameInput.value);
+  form.append("email", emailInput.value);
+  form.append("password", passwordInput.value);
+  form.append("gender", genderInput.value);
+  form.append("role", roleInput.value);
   fetch("/api/register", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: usernameInput.value,
-      firstName: firstNameInput.value,
-      lastName: lastNameInput.value,
-      email: emailInput.value,
-      password: passwordInput.value,
-      gender: genderInput.options[genderInput.selectedIndex].value,
-      role: roleInput.options[roleInput.selectedIndex].value,
-    }),
+    body: registerData,
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.error) {
-        errorMsg.innerHTML = data.error;
-      } else {
-        window.location.href = "/login";
-      }
+      // log http response
+      console.log(
+        `Response: ${data.status} ${data.statusText} ${data.message}`
+      );
     });
 });

@@ -14,22 +14,11 @@ form.addEventListener("submit", (e) => {
     window.location.href = "/register";
   }
 
+  let loginData = new FormData();
+  loginData.append("username", userNameInput.value);
+  loginData.append("password", passwordInput.value);
   fetch("/api/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: userNameInput.value,
-      password: passwordInput.value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.error) {
-        alert(data.error);
-      } else {
-        window.location.href = "/";
-      }
-    });
+    body: loginData,
+  });
 });
