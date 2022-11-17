@@ -15,7 +15,8 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 DROP TABLE IF EXISTS `Comments`;
 
 
-CREATE TABLE `Comments` (`id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `Comments` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
     `content` text NOT NULL,
     `user_id` int(11) NOT NULL,
     `post_id` int(11) NOT NULL,
@@ -29,17 +30,22 @@ CREATE TABLE `Comments` (`id` int(11) NOT NULL AUTO_INCREMENT,
 DROP TABLE IF EXISTS `Post`;
 
 
-CREATE TABLE `Post` (`id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `Post` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
     `title` varchar(255) NOT NULL,
-    `content` text, `author` int(11) NOT NULL,
-    PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `content` text, 
+    `user_id` int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `user_id` (`user_id`),
+    CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `sub_comments`;
 
 
-CREATE TABLE `sub_comments` (`id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sub_comments` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
     `content` text NOT NULL,
     `user_id` int(11) NOT NULL,
     `comments_id` int(11) NOT NULL,
@@ -54,7 +60,8 @@ CREATE TABLE `sub_comments` (`id` int(11) NOT NULL AUTO_INCREMENT,
 DROP TABLE IF EXISTS `User`;
 
 
-CREATE TABLE `User` (`id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `User` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
     `username` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,
