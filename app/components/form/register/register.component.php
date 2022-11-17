@@ -35,7 +35,7 @@
     </label>
 
     <label for="gender">Role:
-        <select name="gender" class="form_gender-inputs">
+        <select name="gender" class="form_role-inputs">
             <option value="simple">Simple</option>
             <option value="moderator">Moderator</option>
             <option value="admin">Admin</option>
