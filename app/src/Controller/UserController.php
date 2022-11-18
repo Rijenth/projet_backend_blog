@@ -52,9 +52,8 @@ class UserController extends AbstractController
     {
         $user = new User();
         $manager = new UserManager(new PDOFactory());
-        $user2 = $manager->UserNameExist();
         $manager->login($user);
+        var_dump($_SESSION["userid"]);
 
-        var_dump($user2);
     }
 }

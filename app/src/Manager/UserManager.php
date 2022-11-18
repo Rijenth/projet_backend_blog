@@ -44,7 +44,7 @@ class UserManager extends BaseManager
     {
         $query = $this->pdo->prepare("SELECT * FROM User WHERE username = :username");
         $query->execute([
-             "username" => "faust"
+             "username" => $_POST["username"]
         ]);
         $data = $query->fetch(\PDO::FETCH_ASSOC);
         if (count($data) > 0) {
@@ -64,7 +64,7 @@ class UserManager extends BaseManager
             header("location: ../login.php?error=wrongLogin");
             exit();
         }
-        $checkPass = $user->passwordMatch();
+        $checkPass = $user->passwordMatch($_POST["password"]);
 
 
         if ($checkPass === false) {
