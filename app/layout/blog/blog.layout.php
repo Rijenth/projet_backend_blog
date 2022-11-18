@@ -34,33 +34,13 @@ $tempId = 70;
     </div>
 
     <main id="blog_page">
-        <!-- Form to create a post -->
         <form action="/api/posts/create" method="POST" class="post-form">
             <input type="text" name="title" placeholder="Title" />
             <textarea name="content" placeholder="Content"></textarea>
             <button class="form_action" type="submit">Create</button>
         </form>
         <div class="blog_posts-wrapper">
-            <div class="blog_post">
-                <h3 class="blog_post-title">
-                    Post test
-                </h3>
-                <p class="blog_post-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor at fuga ut
-                    consectetur magni nesciunt consequatur cum amet obcaecati vel facilis quisquam exercitationem, illum
-                    incidunt delectus ducimus impedit! Quo, consequatur!
-                </p>
-                <p class="blog_post-author">
-                    <? echo $_SESSION['user'] ?>
-                </p>
-                <?php
-                //if session role is admin or moderator show delete button
-                if ($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'moderator') {
-                    echo '<button class="delete-btn"
-                    onclick="deletePost(' . $tempId . ')">Delete</button>';
-                }
-                ?>
 
-            </div>
         </div>
     </main>
     <script>
