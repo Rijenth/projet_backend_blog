@@ -1,8 +1,3 @@
-<?
-// this is a comment component it will take in argument a $username and a $comment and $sub_comments
-// a sub comment is a comment that is a reply to another comment
-?>
-
 <div class="comment">
     <p class="comment-author">@<?= $username; ?></p>
     <p class="comment-content">

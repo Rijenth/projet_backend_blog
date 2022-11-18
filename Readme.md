@@ -13,7 +13,7 @@
 
 - `app/components` -> components utilisé sur une page
 - `app/layout` -> Les 3 différent layout qui seront utilisé pour l'app
-- `app/view` -> N'existe pas parce qu'on ne s'en sert pas
+- `app/styles` -> SCSS de l'app
 ## Les api endpoints
 
 - `/api/register` -> méthode POST -> créer un utilisateur

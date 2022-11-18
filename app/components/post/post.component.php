@@ -1,3 +1,4 @@
+<!-- deprecated -->
 <div class="post">
     <div class="post_content-wrapper">
         <h2 class="post-title"><?= $blogTitle; ?></h2>
