@@ -6,14 +6,13 @@ const errorMsg = document.getElementsByClassName("form_error-msg")[0];
 const form = document.getElementsByClassName("form_login")[0];
 
 form.addEventListener("submit", (e) => {
-
   if (userNameInput.value === "" || passwordInput.value === "") {
     errorMsg.innerHTML = "Please fill out all fields";
+    e.preventDefault();
   }
   // if it was the button to go to register page, redirect to register page and preventDefault
   if (e.submitter.id === "register") {
     e.preventDefault();
-
     window.location.href = "/register";
   }
 

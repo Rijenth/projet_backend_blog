@@ -27,25 +27,16 @@ if (!isset($_COOKIE['user'])) {
 <body>
     <main id="user-page">
         <h1>User profile</h1>
-        <?php if (isset($args['userId'])) : ?>
-        <p>User id: <?php echo $args['userId'] ?></p>
-        <?php endif; ?>
     </main>
     <script>
-    // get user in url
-    const url = window.location.href;
-    const urlArray = url.split('/');
-    const userId = urlArray[urlArray.length - 1];
-    // get user from api
-    fetch(`/api/user/${userId}`)
-        .then(response => response.json())
-        .then(user => {
-            const userPage = document.getElementById('user-page');
-            userPage.innerHTML = `
-                <h1>${user.username}</h1>
-                <h2>${user.firstName} ${user.lastName}</h2>
-            `;
-        });
+    // test the fetch to /api/user/{user_id}
+
+    const userId = <?php echo $args['userId'] ?>;
+    const url = `/api/user/${userId}`;
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error));
     </script>
 </body>
 

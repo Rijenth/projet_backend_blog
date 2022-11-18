@@ -180,7 +180,6 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
         $user["firstName"] = $this->getFirstName();
         $user["lastName"] = $this->getLastName();
         $user['gender'] = $this->getGender();
-        
         return $user;
     }
 }
