@@ -177,18 +177,4 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
     {
         return password_verify($password, $this->password);
     }
-
-    public function dataToArray(): array
-    {
-        $user = [];
-
-        $user["id"] = $this->getId();
-        $user["username"] = $this->getUsername();
-        $user["email"] = $this->getEmail();
-        $user["firstName"] = $this->getFirstName();
-        $user["lastName"] = $this->getLastName();
-        $user['gender'] = $this->getGender();
-        $user['roles'] = $this->getRoles();
-        return $user;
-    }
 }
