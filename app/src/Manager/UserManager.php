@@ -24,7 +24,7 @@ class UserManager extends BaseManager
 
         return $users;
     }
-    
+
     public function getSingleUser(array $data): User
     {
         $query = $this->pdo->prepare("SELECT * FROM User WHERE id = :id");
@@ -43,7 +43,7 @@ class UserManager extends BaseManager
     public function register(User $user): void
     {
         $query = $this->pdo->prepare("INSERT INTO User (username, password, email, firstName, lastName, gender, roles) VALUES (:username, :password, :email, :firstName, :lastName, :gender, :roles)");
-        
+
         $query->execute([
             "username" => $user->getUsername(),
             "email" => $user->getEmail(),
@@ -53,6 +53,5 @@ class UserManager extends BaseManager
             "gender" => $user->getGender(),
             "roles" => $user->getRole(),
         ]);
-    }    
-
+    }
 }
