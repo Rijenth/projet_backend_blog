@@ -20,4 +20,17 @@ class PostController extends AbstractController
             ],
         );
     }
+    // Create a route for specific user
+    #[Route('/user/{id}', name: 'user', methods: ['GET'])]
+    public function user(string $id)
+    {
+        $view = dirname(__DIR__, 2) . '/layout/user/user.layout.php';
+        $this->render(
+            $view,
+            [
+                "pageTitle" => "User",
+                "userId" => $id,
+            ],
+        );
+    }
 }
