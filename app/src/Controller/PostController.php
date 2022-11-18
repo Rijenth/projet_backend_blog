@@ -32,7 +32,6 @@ class PostController extends AbstractController
 
         echo json_encode($posts);
     }
-    /* /api/posts/delete/{id} */
 
     // Create a route for specific user
     #[Route('/user/{id}', name: 'user', methods: ['GET'])]
