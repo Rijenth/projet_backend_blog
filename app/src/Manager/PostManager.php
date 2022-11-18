@@ -7,7 +7,7 @@ use App\Entity\Post;
 class PostManager extends BaseManager
 {
     /**
-     * @return Post[]
+     * @return array
      */
     public function index(): array
     {
@@ -25,8 +25,8 @@ class PostManager extends BaseManager
     }
 
     /**
-     * @param int $id
-     * @return Post
+     * @param array $data
+     * @return array
      */
     public function indexMyPosts(array $data): array
     {
@@ -39,29 +39,33 @@ class PostManager extends BaseManager
         $posts = [];
 
         while ($data = $query->fetch(\PDO::FETCH_ASSOC)) {
-            $posts[] = new Post($data);
+            $post = new Post($data);
+            
+            $posts[] = $post->dataToArray();
         }
 
         return $posts;
     }
 
     /**
-     * @param int $id
+     * @param array $data
      * @return Post
      */
     public function getSinglePost(array $data): Post
     {
-        $query = $this->pdo->prepare("SELECT * FROM Post WHERE id = :post_id");
+        // TODO: Cette fonction renvoie un objet Post, 
+        // Dans PostControleur, il faudra convertir cette objet en tableau pour
+        // pouvoir l'envoyer en JSON au front. (Voir la fonction index(), ligne 19 à 21, pour exemple)
+
+        $query = $this->pdo->prepare("SELECT * FROM Post WHERE id = :id");
 
         $query->execute([
-            "post_id" => $data['post_id'],
+            "id" => $data['id'],
         ]);
 
         $data = $query->fetch(\PDO::FETCH_ASSOC);
 
-        $post = new Post($data);
-
-        return $post;
+        return new Post($data);
     }
 
     /**
@@ -81,7 +85,7 @@ class PostManager extends BaseManager
     }
 
     /**
-     * @param Post $post
+     * @param array $data
      * @return void
      */
     public function updatePost(array $data): void
