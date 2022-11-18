@@ -71,8 +71,7 @@ class UserManager extends BaseManager
             session_start();
             $_SESSION["userid"] = $user->getId();
             $_SESSION["user"] = $user->getUsername();
-            // TODO: FIX THIS
-            $_SESSION['roles'] = $user->getRole();
+            $_SESSION['roles'] = $user->getRoles();
         }
 
         echo json_encode([
