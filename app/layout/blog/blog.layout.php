@@ -24,6 +24,14 @@ $tempId = 70;
     <a href="/logout" class="logout-btn">
         Logout
     </a>
+    <div class="profile">
+        <div class="profile__info">
+            <h1 class="profile__name">
+                <? echo $_SESSION['user'] ?>
+            </h1>
+
+        </div>
+    </div>
 
     <main id="blog_page">
         <!-- Form to create a post -->
@@ -58,6 +66,42 @@ $tempId = 70;
     <script>
     const current_user = <?php echo json_encode($_SESSION['userid']) ?>;
 
+    // get all posts
+    const postsWrapper = document.querySelector('.blog_posts-wrapper');
+    const renderPosts = () => {
+        fetch('/api/posts')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(post => {
+                    // each post is currently in a string we need to convert it to an object
+                    const postObj = JSON.parse(post);
+                    // create a new div for each post
+                    const postDiv = document.createElement('div');
+                    postDiv.classList.add('blog_post');
+                    // create a new h3 for each post
+                    const postTitle = document.createElement('h3');
+                    postTitle.classList.add('blog_post-title');
+                    postTitle.innerText = postObj.title;
+                    // create a new p for each post
+                    const postContent = document.createElement('p');
+                    postContent.classList.add('blog_post-content');
+                    postContent.innerText = postObj.content;
+                    // create a new p for each post
+                    const postAuthor = document.createElement('p');
+                    postAuthor.classList.add('blog_post-author');
+                    postAuthor.innerText = postObj.author;
+                    // append the elements to the post div
+                    postDiv.appendChild(postTitle);
+                    postDiv.appendChild(postContent);
+                    postDiv.appendChild(postAuthor);
+                    // append the post div to the posts wrapper
+                    postsWrapper.appendChild(postDiv);
+
+                })
+
+            })
+    }
+
     // create post
     const postForm = document.querySelector('.post-form');
     postForm.addEventListener('submit', (e) => {
@@ -73,34 +117,19 @@ $tempId = 70;
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+            }).then(() => {
+                // empty form
+                postForm.title.value = '';
+                postForm.content.value = '';
+                // empty the posts wrapper
+                document.querySelector('.blog_posts-wrapper').innerHTML = '';
+                // fetch all posts
+                renderPosts();
             })
 
     })
 
-    // get all posts
-    const postsWrapper = document.querySelector('.blog_posts-wrapper');
-    fetch('/api/posts')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.classList.add('blog_post');
-                postElement.innerHTML = `
-                <h3 class="blog_post-title">
-                    ${post.title}
-                </h3>
-                <p class="blog_post-content">
-                    ${post.content}
-                </p>
-                <p class="blog_post-author">
-                    ${post.author}
-                </p>
-                <button class="delete-btn"
-                    onclick="deletePost(${post.id})">Delete</button>
-                `;
-                postsWrapper.appendChild(postElement);
-            })
-        })
+
 
     // delete post
     function deletePost(id) {
@@ -112,6 +141,7 @@ $tempId = 70;
                 console.log(data);
             })
     }
+    renderPosts();
     </script>
 </body>
 
