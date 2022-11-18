@@ -22,6 +22,9 @@ if (!isset($_SESSION['user'])) {
 </head>
 
 <body>
+    <a href="/logout" class="logout-btn">
+        Logout
+    </a>
     <main id="user-page">
         <h1>User profile</h1>
         <div id="user-card">
