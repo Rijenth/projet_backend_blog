@@ -19,6 +19,11 @@ class SecurityController extends AbstractController
                 "pageTitle" => "Login",
             ],
         );
+        $manager = new UserManager(new PDOFactory());
+        $user2 = $manager->UserNameExist();
+        var_dump($user2);
+        //$user = new User();
+        //$manager->login($user);
     }
 
     #[Route('/register', name: 'registerView', methods: ['GET'])]
