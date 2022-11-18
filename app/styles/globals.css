@@ -42,6 +42,18 @@ main {
   width: 100%;
 }
 
+.logout-btn {
+  position: absolute;
+  top: 5px;
+  right: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: red;
+  cursor: pointer;
+  border: red solid 2px;
+}
+
 /* Layout */
 /* auth */
 #auth_page {

@@ -20,6 +20,9 @@ if (!isset($_SESSION['user'])) {
 </head>
 
 <body>
+    <a href="/logout" class="logout-btn">
+        Logout
+    </a>
 
     <main id="blog_page">
         <div class="blog_posts-wrapper">
