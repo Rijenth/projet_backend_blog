@@ -26,10 +26,11 @@ $tempId = 70;
     </a>
     <div class="profile">
         <div class="profile__info">
-            <h1 class="profile__name">
-                <? echo $_SESSION['user'] ?>
-            </h1>
-
+            <a href="/user/<?php echo $_SESSION['userid'] ?>">
+                <h1 class="profile__name">
+                    <? echo $_SESSION['user'] ?>
+                </h1>
+            </a>
         </div>
     </div>
 
@@ -50,6 +51,8 @@ $tempId = 70;
     const getAuthor = async (id) => {
         const response = await fetch(`/api/user/${id}`);
         const data = await response.json();
+        //const user = JSON.parse(data);
+
         return data.username;
     }
 
