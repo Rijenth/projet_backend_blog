@@ -50,6 +50,22 @@ class PostController extends AbstractController
         return http_response_code(201);
     }
     /* /api/posts/delete/{id} */
+    #[Route('/api/posts/{id}', name: 'deletePost', methods: ['DELETE'])]
+    public function deletePost(array $data)
+    {
+        $postManager = new PostManager(new PDOFactory());
+
+        try {
+            $postManager->deletePost($data['id']);
+        } catch (\PDOException $e) {
+            return http_response_code(500);
+        }
+
+        echo json_encode([
+            'res' => true
+        ]);
+    }
+
 
     // Create a route for specific user
     #[Route('/user/{id}', name: 'user', methods: ['GET'])]
