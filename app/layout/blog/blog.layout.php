@@ -95,6 +95,8 @@ $tempId = 69;
                 <p class="blog_post-author">
                     ${post.author}
                 </p>
+                <button class="delete-btn"
+                    onclick="deletePost(${post.id})">Delete</button>
                 `;
                 postsWrapper.appendChild(postElement);
             })
