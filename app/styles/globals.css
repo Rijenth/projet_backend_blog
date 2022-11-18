@@ -84,6 +84,12 @@ main {
   align-items: flex-start;
   justify-content: center;
 }
+#auth_page .form-wrapper .form_login h1,
+#auth_page .form-wrapper .form_register h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
 #auth_page .form-wrapper .form_login hr,
 #auth_page .form-wrapper .form_register hr {
   width: 80%;
