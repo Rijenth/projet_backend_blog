@@ -14,9 +14,10 @@ class PostManager extends BaseManager
         $query = $this->pdo->query("SELECT * FROM Post");
 
         $posts = [];
-
+        
         while ($data = $query->fetch(\PDO::FETCH_ASSOC)) {
             $post = new Post($data);
+            
             $posts[] = $post->dataToArray();
         }
 
@@ -75,7 +76,7 @@ class PostManager extends BaseManager
         $query->execute([
             "title" => $post->getTitle(),
             "content" => $post->getContent(),
-            "user_id" => $post->getAuthor(),
+            "user_id" => $post->getUser_id(),
         ]);
     }
 

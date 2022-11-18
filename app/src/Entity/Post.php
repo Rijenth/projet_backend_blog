@@ -7,7 +7,7 @@ class Post extends BaseEntity
     private int $id;
     private string $title;
     private string $content;
-    private int $author;
+    private int $user_id;
 
     
     /**
@@ -67,18 +67,18 @@ class Post extends BaseEntity
     /**
      * @return int
      */
-    public function getAuthor(): int
+    public function getUser_id(): int
     {
-        return $this->author;
+        return $this->user_id;
     }
 
     /**
-     * @param int $author
+     * @param int $user_id
      * @return Post
      */
-    public function setAuthor(int $author): Post
+    public function setUser_id(int $user_id): Post
     {
-        $this->author = $author;
+        $this->user_id = $user_id;
         return $this;
     }
 }
