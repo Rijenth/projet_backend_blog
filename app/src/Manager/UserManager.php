@@ -89,7 +89,7 @@ class UserManager extends BaseManager
             "firstName" => $user->getFirstName(),
             "lastName" => $user->getLastName(),
             "gender" => $user->getGender(),
-            "roles" => $user->getRole(),
+            "roles" => $user->getRoles(),
         ]);
     }
 }

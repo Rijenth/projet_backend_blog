@@ -44,9 +44,10 @@ if (!isset($_SESSION['user'])) {
                     <? echo $_SESSION['user'] ?>
                 </p>
                 <?php
-                //if session role is admin show delete button
-
-                var_dump($_SESSION);
+                //if session role is admin or moderator show delete button
+                if ($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'moderator') {
+                    echo '<button class="delete-btn">Delete</button>';
+                }
                 ?>
 
             </div>
