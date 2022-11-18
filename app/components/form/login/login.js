@@ -23,9 +23,7 @@ form.addEventListener("submit", (e) => {
     method: "POST",
     body: loginData,
   }).then((res) => {
-    if (res.ok) {
-      window.location.href = "/";
-    } else {
+    if (!res.ok) {
       errorMsg.innerHTML = "Wrong username or password";
     }
   });

@@ -35,7 +35,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/api/user/{user_id}', name: 'getSingleUser', methods: ['GET'])]
-    public function getSingleUser(string $user_id): int
+    public function getSingleUser(string $user_id)
     {
         $manager = new UserManager(new PDOFactory());
 
@@ -46,7 +46,6 @@ class UserController extends AbstractController
         }
 
         echo json_encode($user->dataToArray());
-
     }
     #[Route('/api/login', name: 'createUser', methods: ['POST'])]
     public function loginUser()
@@ -56,6 +55,5 @@ class UserController extends AbstractController
 
         $manager->login($user);
         var_dump($_SESSION["userid"]);
-
     }
 }
