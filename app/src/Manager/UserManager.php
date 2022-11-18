@@ -14,7 +14,7 @@ class UserManager extends BaseManager
      */
     public function getAllUsers(): array
     {
-        $query = $this->pdo->query("select * from User");
+        $query = $this->pdo->query("select * from `User`");
 
         $users = [];
 
@@ -25,31 +25,31 @@ class UserManager extends BaseManager
         return $users;
     }
 
-    public function UserNameExist(User $user)
+    public function UserNameExist():bool
     {
-        $query = $this->pdo->query("SELECT * FROM users WHERE username = ?;");
+        $query = $this->pdo->prepare("SELECT * FROM User WHERE username = :username");
         $query->execute([
-            "username" => $user->getUsername(),
+             "username" => "faust"
         ]);
-        $data = $query->fetch(PDO::FETCH_ASSOC);
-
-        if ($data) {
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        if (count($data) > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function login(User $user,$uid, $pwd)
+    public function login(User $user)
     {
-        $uidExist = $this->UserNameExist($uid);
+        $uidExist = $this->UserNameExist();
+        $alluid = $this->getAllUsers();
+        var_dump($alluid);
 
         if ($uidExist === false) {
             header("location: ../login.php?error=wrongLogin");
             exit();
         }
-        $pwdHashed = $user->getHashedPassword();
-        $checkPass = password_verify($pwd, $pwdHashed);
+        $checkPass = $user->passwordMatch();
 
 
         if ($checkPass === false) {
@@ -70,7 +70,6 @@ class UserManager extends BaseManager
             "username" => $user->getUsername(),
             "email" => $user->getEmail(),
             "password" => $user->getHashedPassword(),
-
         ]);
     }
 }

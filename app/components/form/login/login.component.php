@@ -1,4 +1,4 @@
-<form method="post" action="/login" class="form_login">
+<form method="post" action="/api/login" class="form_login">
     <h1>Connexion : </h1>
     <label for="username">Username :</label>
     <input id="username" type="text" name="username" class="form_username-input">
