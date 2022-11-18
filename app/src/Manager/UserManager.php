@@ -40,11 +40,11 @@ class UserManager extends BaseManager
         return $user;
     }
 
-    public function UserNameExist():bool
+    public function UserNameExist(): bool
     {
         $query = $this->pdo->prepare("SELECT * FROM User WHERE username = :username");
         $query->execute([
-             "username" => $_POST["username"]
+            "username" => $_POST["username"]
         ]);
         $data = $query->fetch(\PDO::FETCH_ASSOC);
         if (count($data) > 0) {
