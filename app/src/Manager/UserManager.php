@@ -40,42 +40,40 @@ class UserManager extends BaseManager
         return $user;
     }
 
-    public function UserNameExist(): bool
+    public function UserNameExist($username): bool|User
     {
         $query = $this->pdo->prepare("SELECT * FROM User WHERE username = :username");
         $query->execute([
-            "username" => $_POST["username"]
+            "username" => $username
         ]);
         $data = $query->fetch(\PDO::FETCH_ASSOC);
         if (count($data) > 0) {
-            return true;
+            return new User($data);
         } else {
             return false;
         }
     }
 
-    public function login(User $user)
+    public function login(string $username, string $password)
     {
-        $uidExist = $this->UserNameExist();
-        $alluid = $this->getAllUsers();
-        var_dump($alluid);
+        $user = $this->UserNameExist($username);
 
-        if ($uidExist === false) {
-            header("location: ../login.php?error=wrongLogin");
-            exit();
+
+        if ($user === false) {
+            return http_response_code(404);
         }
-        $checkPass = $user->passwordMatch($_POST["password"]);
-
+        $checkPass = $user->passwordMatch($password);
+        var_dump($checkPass);
 
         if ($checkPass === false) {
-            header("location: ../login.php?error=wrongLogin");
-            exit();
-        } else if ($checkPass === true) {
+            return http_response_code(404);
+        } else  {
             session_start();
-            $_SESSION["userid"] = $user->getId();
+            $_SESSION["user"] = $user->getId();
             $_SESSION["useruid"] = $user->getUsername();
-            header("location: /");
-            exit();
+            echo json_encode([
+                "res" => $checkPass
+            ]);
         }
     }
     public function register(User $user): void
@@ -85,7 +83,7 @@ class UserManager extends BaseManager
         $query->execute([
             "username" => $user->getUsername(),
             "email" => $user->getEmail(),
-            "password" => $user->getHashedPassword(),
+            "password" => $user->getPassword(),
             "firstName" => $user->getFirstName(),
             "lastName" => $user->getLastName(),
             "gender" => $user->getGender(),

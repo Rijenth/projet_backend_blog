@@ -26,7 +26,7 @@ class SecurityController extends AbstractController
         $user = new User();
         $manager = new UserManager(new PDOFactory());
         $manager->login($user);
-        var_dump($_SESSION["userid"]);
+
     }
 
     #[Route('/register', name: 'registerView', methods: ['GET'])]
