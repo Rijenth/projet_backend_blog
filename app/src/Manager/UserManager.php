@@ -69,8 +69,8 @@ class UserManager extends BaseManager
             return http_response_code(404);
         } else  {
             session_start();
-            $_SESSION["user"] = $user->getId();
-            $_SESSION["useruid"] = $user->getUsername();
+            $_SESSION["userid"] = $user->getId();
+            $_SESSION["user"] = $user->getUsername();
         }
 
         echo json_encode([
