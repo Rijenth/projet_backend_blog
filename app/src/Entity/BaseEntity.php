@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Traits\Hydrator;
+use ReflectionClass;
 
 abstract class BaseEntity
 {
@@ -12,4 +13,23 @@ abstract class BaseEntity
     {
        $this->hydrate($data);
     }
+
+    public function dataToArray()
+    {
+        $data = [];
+
+        $reflection = new ReflectionClass($this);
+
+        $properties = $reflection->getProperties();
+
+        foreach ($properties as $property) {
+
+            $property->setAccessible(true);
+
+            $data[$property->getName()] = $property->getValue($this);
+        }
+
+        return json_encode($data);
+    }
 }
+

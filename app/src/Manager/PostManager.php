@@ -16,9 +16,10 @@ class PostManager extends BaseManager
         $posts = [];
 
         while ($data = $query->fetch(\PDO::FETCH_ASSOC)) {
-            $posts[] = new Post($data);
+            $post = New Post($data);
+            $posts[] = $post->dataToArray();
         }
-
+        
         return $posts;
     }
 
