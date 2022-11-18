@@ -46,15 +46,16 @@ class UserController extends AbstractController
         }
 
         echo json_encode($user->dataToArray());
+
     }
     #[Route('/api/login', name: 'createUser', methods: ['POST'])]
     public function loginUser()
     {
         $user = new User();
         $manager = new UserManager(new PDOFactory());
-        $user2 = $manager->UserNameExist();
-        $manager->login($user);
 
-        var_dump($user2);
+        $manager->login($user);
+        var_dump($_SESSION["userid"]);
+
     }
 }

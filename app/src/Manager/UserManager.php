@@ -33,13 +33,51 @@ class UserManager extends BaseManager
             "id" => $data['user_id'],
         ]);
 
-        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $data = $query->fetchAll(\PDO::FETCH_ASSOC);
 
         $user = new User($data);
 
         return $user;
     }
 
+    public function UserNameExist():bool
+    {
+        $query = $this->pdo->prepare("SELECT * FROM User WHERE username = :username");
+        $query->execute([
+             "username" => $_POST["username"]
+        ]);
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        if (count($data) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function login(User $user)
+    {
+        $uidExist = $this->UserNameExist();
+        $alluid = $this->getAllUsers();
+        var_dump($alluid);
+
+        if ($uidExist === false) {
+            header("location: ../login.php?error=wrongLogin");
+            exit();
+        }
+        $checkPass = $user->passwordMatch($_POST["password"]);
+
+
+        if ($checkPass === false) {
+            header("location: ../login.php?error=wrongLogin");
+            exit();
+        } else if ($checkPass === true) {
+            session_start();
+            $_SESSION["userid"] = $user->getId();
+            $_SESSION["useruid"] = $user->getUsername();
+            header("location: /");
+            exit();
+        }
+    }
     public function register(User $user): void
     {
         $query = $this->pdo->prepare("INSERT INTO User (username, password, email, firstName, lastName, gender, roles) VALUES (:username, :password, :email, :firstName, :lastName, :gender, :roles)");

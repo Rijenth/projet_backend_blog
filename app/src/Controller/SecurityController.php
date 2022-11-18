@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
-use App\Route\Route;
 
+use App\Entity\User;
+use App\Factory\PDOFactory;
+use App\Manager\PostManager;
+use App\Manager\UserManager;
+use App\Route\Route;
 
 
 class SecurityController extends AbstractController
@@ -19,11 +23,10 @@ class SecurityController extends AbstractController
                 "pageTitle" => "Login",
             ],
         );
+        $user = new User();
         $manager = new UserManager(new PDOFactory());
-        $user2 = $manager->UserNameExist();
-        var_dump($user2);
-        //$user = new User();
-        //$manager->login($user);
+        $manager->login($user);
+        var_dump($_SESSION["userid"]);
     }
 
     #[Route('/register', name: 'registerView', methods: ['GET'])]

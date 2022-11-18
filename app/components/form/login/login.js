@@ -12,8 +12,8 @@ form.addEventListener("submit", (e) => {
   }
   // if it was the button to go to register page, redirect to register page and preventDefault
   if (e.submitter.id === "register") {
-    window.location.href = "/register";
     e.preventDefault();
+    window.location.href = "/register";
   }
 
   let loginData = new FormData();
