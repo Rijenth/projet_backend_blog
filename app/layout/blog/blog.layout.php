@@ -109,11 +109,7 @@ $tempId = 70;
             })
             .then(response => response.json())
             .then(data => {
-                // if data.res is true, alert user and reload page
-                if (data.res) {
-                    alert('Post deleted');
-                    location.reload();
-                }
+                console.log(data);
             })
     }
     </script>

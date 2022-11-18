@@ -16,10 +16,10 @@ class PostManager extends BaseManager
         $posts = [];
 
         while ($data = $query->fetch(\PDO::FETCH_ASSOC)) {
-            $post = New Post($data);
+            $post = new Post($data);
             $posts[] = $post->dataToArray();
         }
-        
+
         return $posts;
     }
 
@@ -108,12 +108,12 @@ class PostManager extends BaseManager
      * @param int $id
      * @return void
      */
-    public function deletePost(array $data): void
+    public function deletePost(int $id): void
     {
         $query = $this->pdo->prepare("DELETE FROM Post WHERE id = :post_id");
 
         $query->execute([
-            "post_id" => $data['post_id'],
+            "post_id" => $id,
         ]);
     }
 }
