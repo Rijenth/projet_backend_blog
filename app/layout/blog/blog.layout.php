@@ -4,6 +4,7 @@ if (!isset($_SESSION['user'])) {
     header("Location: /login");
     exit();
 }
+$tempId = 69;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +47,8 @@ if (!isset($_SESSION['user'])) {
                 <?php
                 //if session role is admin or moderator show delete button
                 if ($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'moderator') {
-                    echo '<button class="delete-btn">Delete</button>';
+                    echo '<button class="delete-btn"
+                    onclick="deletePost(' . $tempId . ')">Delete</button>';
                 }
                 ?>
 
@@ -54,7 +56,7 @@ if (!isset($_SESSION['user'])) {
         </div>
     </main>
     <script>
-    const current_user = <?php echo json_encode($_SESSION['user']) ?>;
+    const current_user = <?php echo json_encode($_SESSION['userid']) ?>;
 
     // create post
     const postForm = document.querySelector('.post-form');
@@ -97,6 +99,9 @@ if (!isset($_SESSION['user'])) {
                 postsWrapper.appendChild(postElement);
             })
         })
+
+    // delete post
+    const deleteBtn = document.querySelectorAll('.delete-btn');
     </script>
 </body>
 
