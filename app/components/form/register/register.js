@@ -1,4 +1,4 @@
-console.log("auth is ready to go");
+const submitBtn = document.getElementsByClassName("form_submit-btn")[0];
 const usernameInput = document.getElementsByClassName("form_username-input")[0];
 const firstNameInput = document.getElementsByClassName(
   "form_first-name-input"
@@ -20,8 +20,14 @@ const errorMsg = document.getElementsByClassName("form_error-msg")[0];
 // add event listener to the form
 // if any input is empty, disable the submit button
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+const resetErors = () => {
+  setTimeout(() => {
+    errorMsg.innerHTML = "";
+    submitBtn.removeAttribute("disabled");
+  }, 1000);
+};
+
+const areInputsGood = () => {
   if (
     usernameInput.value === "" ||
     firstNameInput.value === "" ||
@@ -30,47 +36,66 @@ form.addEventListener("submit", (e) => {
     passwordInput.value === "" ||
     passwordConfirmInput.value === ""
   ) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please fill out all fields";
+    resetErors();
+    return false;
   }
   // if the password and password confirm inputs don't match, change the error message
   if (passwordInput.value !== passwordConfirmInput.value) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Passwords don't match";
+    resetErors();
+    return false;
   }
   // add regex to check if the email is valid
   // if it's not, change the error message
   if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please enter a valid email";
+    resetErors();
+    return false;
   }
   // regex for password
   // if it's not valid, change the error message
   if (
     !passwordInput.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
   ) {
+    submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML =
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
+    resetErors();
+    return false;
   }
+  return true;
+};
 
-  fetch("/api/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: usernameInput.value,
-      firstName: firstNameInput.value,
-      lastName: lastNameInput.value,
-      email: emailInput.value,
-      password: passwordInput.value,
-      gender: genderInput.options[genderInput.selectedIndex].value,
-      role: roleInput.options[roleInput.selectedIndex].value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.error) {
-        errorMsg.innerHTML = data.error;
-      } else {
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // do the default action if all inputs are valid
+  if (areInputsGood()) {
+    let registerData = new FormData();
+    registerData.append("username", usernameInput.value);
+    registerData.append("firstName", firstNameInput.value);
+    registerData.append("lastName", lastNameInput.value);
+    registerData.append("email", emailInput.value);
+    registerData.append("password", passwordInput.value);
+    // gender and role are select inputs with options
+    registerData.append("gender", genderInput.value);
+    registerData.append("role", roleInput.value);
+    fetch("/api/register", {
+      method: "POST",
+      body: registerData,
+
+      // if the response is ok, redirect to the login page
+    }).then((res) => {
+      if (res.ok) {
         window.location.href = "/login";
       }
     });
+  }
+});
+
+submitBtn.addEventListener("mouseover", () => {
+  areInputsGood();
 });

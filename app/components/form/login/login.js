@@ -1,14 +1,14 @@
 const userNameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 
+const errorMsg = document.getElementsByClassName("form_error-msg")[0];
+
 const form = document.getElementsByClassName("form_login")[0];
 
 form.addEventListener("submit", (e) => {
 
   if (userNameInput.value === "" || passwordInput.value === "") {
-    e.preventDefault();
-
-    alert("Please fill out all fields");
+    errorMsg.innerHTML = "Please fill out all fields";
   }
   // if it was the button to go to register page, redirect to register page and preventDefault
   if (e.submitter.id === "register") {
@@ -17,22 +17,17 @@ form.addEventListener("submit", (e) => {
     window.location.href = "/register";
   }
 
-  /*fetch("/api/login", {
+  let loginData = new FormData();
+  loginData.append("username", userNameInput.value);
+  loginData.append("password", passwordInput.value);
+  fetch("/api/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: userNameInput.value,
-      password: passwordInput.value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.error) {
-        alert(data.error);
-      } else {
-        window.location.href = "/";
-      }
-    });*/
+    body: loginData,
+  }).then((res) => {
+    if (res.ok) {
+      window.location.href = "/";
+    } else {
+      errorMsg.innerHTML = "Wrong username or password";
+    }
+  });
 });

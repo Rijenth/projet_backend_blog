@@ -14,7 +14,7 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
     private string $firstName;
     private string $lastName;
     private ?string $gender;
-    private array $roles = [];
+    private string $roles;
 
     /**
      * @return int
@@ -127,18 +127,16 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
     /**
      * @return array
      */
-    public function getRole(): array
+    public function getRole(): string
     {
-        $roles = $this->roles;
-        $roles[] = "ROLE_USER";
-        return $roles;
+        return $this->roles;
     }
 
     /**
      * @param array $roles
      * @return User
      */
-    public function setRole(array $roles): User
+    public function setRole(string $roles): User
     {
         $this->roles = $roles;
         return $this;
@@ -149,7 +147,7 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
      */
     public function getHashedPassword(): string
     {
-        return  password_hash($this->password, PASSWORD_DEFAULT);
+        return password_hash($this->password, PASSWORD_DEFAULT);
     }
 
     /**
@@ -170,5 +168,20 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
     public function passwordMatch(string $password): bool
     {
         return password_verify($password, $this->password);
+    }
+
+    public function dataToArray(): array
+    {
+        $user = [];
+
+        $user["id"] = $this->getId();
+        $user["username"] = $this->getUsername();
+        $user["email"] = $this->getEmail();
+        $user["firstName"] = $this->getFirstName();
+        $user["lastName"] = $this->getLastName();
+        $user['gender'] = $this->getGender();
+        $user['roles'] = $this->getRole();
+
+        return $user;
     }
 }

@@ -5,9 +5,11 @@ namespace App\Entity;
 class Post extends BaseEntity
 {
     private int $id;
+    private string $title;
     private string $content;
     private int $author;
 
+    
     /**
      * @return int
      */
@@ -23,6 +25,24 @@ class Post extends BaseEntity
     public function setId(int $id): Post
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return Post
+     */
+    public function setTitle(string $title): Post
+    {
+        $this->title = $title;
         return $this;
     }
 
