@@ -36,7 +36,7 @@ class UserController extends AbstractController
             return http_response_code(500);
         }
 
-        echo $user->dataToArray();
+        echo json_encode($user->dataToArray());
     }
     #[Route('/api/login', name: 'createUser', methods: ['POST'])]
     public function loginUser()

@@ -66,6 +66,13 @@ $tempId = 70;
     <script>
     const current_user = <?php echo json_encode($_SESSION['userid']) ?>;
 
+    // get author
+    const getAuthor = async (id) => {
+        const response = await fetch(`/api/user/${id}`);
+        const data = await response.json();
+        return data.username;
+    }
+
     // get all posts
     const postsWrapper = document.querySelector('.blog_posts-wrapper');
     const renderPosts = () => {
@@ -75,6 +82,7 @@ $tempId = 70;
                 data.forEach(post => {
                     // each post is currently in a string we need to convert it to an object
                     const postObj = JSON.parse(post);
+                    const author_id = postObj.user_id;
                     // create a new div for each post
                     const postDiv = document.createElement('div');
                     postDiv.classList.add('blog_post');
@@ -89,7 +97,22 @@ $tempId = 70;
                     // create a new p for each post
                     const postAuthor = document.createElement('p');
                     postAuthor.classList.add('blog_post-author');
-                    postAuthor.innerText = postObj.author;
+                    // sadly we need to wait for getAuthor to finish before we can add the author to the post
+                    getAuthor(author_id).then(author => {
+                        postAuthor.innerText = author;
+                    });
+                    // add a delete btn if user is admin or moderator or if user is the author of the post
+                    if (author_id == current_user ||
+                        <?php echo json_encode($_SESSION['roles']) ?> ==
+                        'admin' || <?php echo json_encode($_SESSION['roles']) ?> == 'moderator') {
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.classList.add('delete-btn');
+                        deleteBtn.innerText = 'Delete';
+                        deleteBtn.addEventListener('click', () => {
+                            deletePost(postObj.id);
+                        });
+                        postDiv.appendChild(deleteBtn);
+                    }
                     // append the elements to the post div
                     postDiv.appendChild(postTitle);
                     postDiv.appendChild(postContent);
@@ -101,7 +124,6 @@ $tempId = 70;
 
             })
     }
-
     // create post
     const postForm = document.querySelector('.post-form');
     postForm.addEventListener('submit', (e) => {
@@ -109,7 +131,7 @@ $tempId = 70;
         const formData = new FormData();
         formData.append('title', postForm.title.value);
         formData.append('content', postForm.content.value);
-        formData.append('author', current_user);
+        formData.append('user_id', current_user);
         fetch('/api/posts/create', {
                 method: 'POST',
                 body: formData
@@ -117,15 +139,16 @@ $tempId = 70;
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-            }).then(() => {
-                // empty form
-                postForm.title.value = '';
-                postForm.content.value = '';
-                // empty the posts wrapper
-                document.querySelector('.blog_posts-wrapper').innerHTML = '';
-                // fetch all posts
-                renderPosts();
             })
+
+        // if the above code works we need to clear the form
+        // empty form
+        postForm.title.value = '';
+        postForm.content.value = '';
+        // empty the posts wrapper
+        document.querySelector('.blog_posts-wrapper').innerHTML = '';
+        // fetch all posts
+        renderPosts();
 
     })
 
@@ -134,12 +157,16 @@ $tempId = 70;
     // delete post
     function deletePost(id) {
         fetch(`/api/posts/${id}`, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
+            method: 'DELETE'
+        })
+        // if the above code works we need to clear the form
+        // empty form
+        postForm.title.value = '';
+        postForm.content.value = '';
+        // empty the posts wrapper
+        document.querySelector('.blog_posts-wrapper').innerHTML = '';
+        // fetch all posts
+        renderPosts();
     }
     renderPosts();
     </script>
