@@ -1,7 +1,7 @@
 const userNameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 
-const errorMsg = document.getElementsByClassName("form_error-msg")[0];
+const errorMsg = document.getElementsByClassName("form_error-message")[0];
 
 const form = document.getElementsByClassName("form_login")[0];
 

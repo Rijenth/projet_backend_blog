@@ -1,14 +1,9 @@
 <?php
 // Check if user is logged in
-/* if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user'])) {
     header("Location: /login");
     exit();
 }
-// check cookies
-if (!isset($_COOKIE['user'])) {
-    header("Location: /login");
-    exit();
-} */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +32,7 @@ if (!isset($_COOKIE['user'])) {
                     incidunt delectus ducimus impedit! Quo, consequatur!</p>
             </div>
         </div>
+        <?php var_dump($_SESSION) ?>
     </main>
     <script>
     const current_user = <?php echo json_encode($_SESSION['user']) ?>;

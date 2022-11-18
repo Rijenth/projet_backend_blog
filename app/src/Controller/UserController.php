@@ -9,15 +9,6 @@ use App\Route\Route;
 
 class UserController extends AbstractController
 {
-    public function home()
-    {
-        $manger = new UserManager(new PDOFactory());
-        $user = $manger->getAllUsers();
-
-        $this->render("home.php", ["posts" => $user], "Tous les posts");
-    }
-
-
     #[Route('/api/register', name: 'createUser', methods: ['POST'])]
     public function createUser()
     {
@@ -55,6 +46,6 @@ class UserController extends AbstractController
 
         $manager = new UserManager(new PDOFactory());
 
-        $manager->login($username,$password);
+        $manager->login($username, $password);
     }
 }

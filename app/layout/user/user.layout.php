@@ -1,15 +1,11 @@
 <?php
 
 // Check if user is logged in
-/* if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user'])) {
     header("Location: /login");
     exit();
 }
-// check cookies
-if (!isset($_COOKIE['user'])) {
-    header("Location: /login");
-    exit();
-} */
+
 ?>
 
 <!DOCTYPE html>

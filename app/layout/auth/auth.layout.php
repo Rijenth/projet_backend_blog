@@ -1,3 +1,10 @@
+<?php
+// check if the user is logged in
+if (isset($_SESSION['user'])) {
+    header("Location: /");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

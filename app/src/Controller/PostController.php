@@ -8,7 +8,6 @@ use App\Route\Route;
 
 class PostController extends AbstractController
 {
-
     #[Route('/', name: 'home', methods: ['GET'])]
     public function home()
     {
