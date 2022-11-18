@@ -33,7 +33,7 @@ class UserManager extends BaseManager
             "id" => $data['user_id'],
         ]);
 
-        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $data = $query->fetchAll(\PDO::FETCH_ASSOC);
 
         $user = new User($data);
 
