@@ -17,7 +17,7 @@ class UserController extends AbstractController
         $this->render("home.php", ["posts" => $user], "Tous les posts");
     }
 
-    
+
     #[Route('/api/register', name: 'createUser', methods: ['POST'])]
     public function createUser()
     {
@@ -27,9 +27,8 @@ class UserController extends AbstractController
 
         try {
             $manager->register($user);
-        } catch (\PDOException $e) 
-        {
-            return http_response_code(500, "Erreur lors de l'inscription");
+        } catch (\PDOException $e) {
+            return http_response_code(500);
         }
 
         return http_response_code(201);

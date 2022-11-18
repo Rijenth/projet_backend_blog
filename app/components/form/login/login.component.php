@@ -6,9 +6,9 @@
     <input id="password" type="password" name="password" class="form_password-input">
 
     <p class="form_error-message"></p>
-    <button class="form_submit-btn">Envoyer</button>
+    <button class="form_submit-btn form_action">Envoyer</button>
     <hr />
-    <button onclick="window.location.href = '/register';">Créer un compte</button>
+    <a href="/register" class="form_action">Créer un compte</a>
 </form>
 
 

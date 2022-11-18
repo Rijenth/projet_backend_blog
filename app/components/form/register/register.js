@@ -20,7 +20,14 @@ const errorMsg = document.getElementsByClassName("form_error-msg")[0];
 // add event listener to the form
 // if any input is empty, disable the submit button
 
-const checkInputs = () => {
+const resetErors = () => {
+  setTimeout(() => {
+    errorMsg.innerHTML = "";
+    submitBtn.removeAttribute("disabled");
+  }, 1000);
+};
+
+const areInputsGood = () => {
   if (
     usernameInput.value === "" ||
     firstNameInput.value === "" ||
@@ -31,12 +38,14 @@ const checkInputs = () => {
   ) {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please fill out all fields";
+    resetErors();
     return false;
   }
   // if the password and password confirm inputs don't match, change the error message
   if (passwordInput.value !== passwordConfirmInput.value) {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Passwords don't match";
+    resetErors();
     return false;
   }
   // add regex to check if the email is valid
@@ -44,6 +53,7 @@ const checkInputs = () => {
   if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML = "Please enter a valid email";
+    resetErors();
     return false;
   }
   // regex for password
@@ -54,20 +64,16 @@ const checkInputs = () => {
     submitBtn.setAttribute("disabled", "disabled");
     errorMsg.innerHTML =
       "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number";
+    resetErors();
     return false;
   }
-
-  setTimeout(() => {
-    errorMsg.innerHTML = "";
-    submitBtn.removeAttribute("disabled");
-  }, 3000);
   return true;
 };
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   // do the default action if all inputs are valid
-  if (checkInputs()) {
+  if (areInputsGood()) {
     let registerData = new FormData();
     registerData.append("username", usernameInput.value);
     registerData.append("firstName", firstNameInput.value);
@@ -91,5 +97,5 @@ form.addEventListener("submit", (e) => {
 });
 
 submitBtn.addEventListener("mouseover", () => {
-  checkInputs();
+  areInputsGood();
 });

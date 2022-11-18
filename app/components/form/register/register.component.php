@@ -43,11 +43,11 @@
     </label>
 
     <p class="form_error-msg"></p>
-    <button type="submit" class="form_submit-btn">Envoyer</button>
+    <button type="submit" class="form_submit-btn form_action">Envoyer</button>
     <hr />
-    <button onclick="window.location.href = '/login'">Se connecter</button>
+    <a href="/login" class="form_action">Se connecter</a>
 </form>
 
 <script>
-    <?php require_once(dirname(__DIR__, 2) . "/form/register/register.js"); ?>
+<?php require_once(dirname(__DIR__, 2) . "/form/register/register.js"); ?>
 </script>
