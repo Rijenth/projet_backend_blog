@@ -127,7 +127,7 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
     /**
      * @return array
      */
-    public function getRole(): string
+    public function getRoles(): string
     {
         return $this->roles;
     }
@@ -136,7 +136,7 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
      * @param array $roles
      * @return User
      */
-    public function setRole(string $roles): User
+    public function setRoles(string $roles): User
     {
         $this->roles = $roles;
         return $this;
