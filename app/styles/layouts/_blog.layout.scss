@@ -53,6 +53,15 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       padding: 1rem;
+      .delete-btn {
+        padding: 0.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: red;
+        cursor: pointer;
+        background-color: $white;
+        border: red solid 2px;
+      }
       .blog_post-title {
         font-size: 2rem;
         font-weight: 600;
