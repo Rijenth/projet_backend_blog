@@ -56,6 +56,7 @@ if (!isset($_SESSION['user'])) {
     <script>
     const current_user = <?php echo json_encode($_SESSION['user']) ?>;
 
+    // create post
     const postForm = document.querySelector('.post-form');
     postForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -63,7 +64,7 @@ if (!isset($_SESSION['user'])) {
         formData.append('title', postForm.title.value);
         formData.append('content', postForm.content.value);
         formData.append('author', current_user);
-        fetch('api/posts/create', {
+        fetch('/api/posts/create', {
                 method: 'POST',
                 body: formData
             })
@@ -73,6 +74,29 @@ if (!isset($_SESSION['user'])) {
             })
 
     })
+
+    // get all posts
+    const postsWrapper = document.querySelector('.blog_posts-wrapper');
+    fetch('/api/posts')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('blog_post');
+                postElement.innerHTML = `
+                <h3 class="blog_post-title">
+                    ${post.title}
+                </h3>
+                <p class="blog_post-content">
+                    ${post.content}
+                </p>
+                <p class="blog_post-author">
+                    ${post.author}
+                </p>
+                `;
+                postsWrapper.appendChild(postElement);
+            })
+        })
     </script>
 </body>
 
