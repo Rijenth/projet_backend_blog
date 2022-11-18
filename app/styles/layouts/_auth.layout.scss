@@ -88,27 +88,5 @@
       padding: 0 10px;
       color: red;
     }
-    .form_action {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80%;
-      height: 40px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
-      background-color: $grey;
-      color: $black;
-      &:hover {
-        background-color: $color-primary;
-        color: $grey;
-      }
-      // disabled
-      &:disabled {
-        background-color: transparent;
-        color: red;
-        cursor: not-allowed;
-      }
-    }
   }
 }

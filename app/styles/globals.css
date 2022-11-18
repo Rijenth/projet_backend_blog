@@ -42,6 +42,29 @@ main {
   width: 100%;
 }
 
+.form_action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 40px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: #d8d8d8;
+  color: #222222;
+}
+.form_action:hover {
+  background-color: #12acee;
+  color: #f5f5f5;
+  font-weight: bold;
+}
+.form_action:disabled {
+  background-color: transparent;
+  color: red;
+  cursor: not-allowed;
+}
+
 .logout-btn {
   position: absolute;
   top: 5px;
@@ -160,30 +183,6 @@ main {
   padding: 0 10px;
   color: red;
 }
-#auth_page .form-wrapper .form_login .form_action,
-#auth_page .form-wrapper .form_register .form_action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80%;
-  height: 40px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: none;
-  background-color: #d8d8d8;
-  color: #222222;
-}
-#auth_page .form-wrapper .form_login .form_action:hover,
-#auth_page .form-wrapper .form_register .form_action:hover {
-  background-color: #12acee;
-  color: #d8d8d8;
-}
-#auth_page .form-wrapper .form_login .form_action:disabled,
-#auth_page .form-wrapper .form_register .form_action:disabled {
-  background-color: transparent;
-  color: red;
-  cursor: not-allowed;
-}
 
 #user-page {
   height: 100vh;
@@ -239,6 +238,30 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+#blog_page .post-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+  margin-bottom: 2rem;
+}
+#blog_page .post-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+#blog_page .post-form textarea {
+  resize: none;
+  height: 150px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 #blog_page .blog_posts-wrapper {
   display: flex;

@@ -29,7 +29,7 @@ if (!isset($_SESSION['user'])) {
         <form action="/api/posts/create" method="POST" class="post-form">
             <input type="text" name="title" placeholder="Title" />
             <textarea name="content" placeholder="Content"></textarea>
-            <button type="submit">Create</button>
+            <button class="form_action" type="submit">Create</button>
         </form>
         <div class="blog_posts-wrapper">
             <div class="blog_post">

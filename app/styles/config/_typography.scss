@@ -26,6 +26,30 @@ main {
   width: 100%;
 }
 
+.form_action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 40px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: $grey;
+  color: $black;
+  &:hover {
+    background-color: $color-primary;
+    color: $white;
+    font-weight: bold;
+  }
+  // disabled
+  &:disabled {
+    background-color: transparent;
+    color: red;
+    cursor: not-allowed;
+  }
+}
+
 .logout-btn {
   position: absolute;
   top: 5px;
