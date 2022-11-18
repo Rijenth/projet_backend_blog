@@ -73,6 +73,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-left: 2rem;
 }
 #auth_page .form-wrapper .form_login,
 #auth_page .form-wrapper .form_register {
@@ -80,15 +81,13 @@ main {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 #auth_page .form-wrapper .form_login hr,
 #auth_page .form-wrapper .form_register hr {
   width: 80%;
-  margin: 5px 0;
-  opacity: 25%;
-  border: 1px solid #222222;
+  opacity: 0.2;
 }
 #auth_page .form-wrapper .form_login input,
 #auth_page .form-wrapper .form_register input {
@@ -101,7 +100,7 @@ main {
 }
 #auth_page .form-wrapper .form_login label,
 #auth_page .form-wrapper .form_register label {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -153,7 +152,6 @@ main {
   margin: 10px 0;
   border-radius: 5px;
   border: none;
-  padding: 0 10px;
   background-color: #f5f5f5;
   color: #222222;
 }
