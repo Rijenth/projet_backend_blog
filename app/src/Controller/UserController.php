@@ -33,4 +33,18 @@ class UserController extends AbstractController
 
         return http_response_code(201);
     }
+
+    #[Route('/api/user/{user_id}', name: 'getSingleUser', methods: ['GET'])]
+    public function getSingleUser(string $user_id): array
+    {
+        $manager = new UserManager(new PDOFactory());
+
+        try {
+            $user = $manager->getSingleUser(["user_id" => $user_id]);
+        } catch (\PDOException $e) {
+            return http_response_code(500);
+        }
+
+        return $user->dataToArray();
+    }
 }

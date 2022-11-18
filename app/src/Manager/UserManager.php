@@ -24,6 +24,21 @@ class UserManager extends BaseManager
 
         return $users;
     }
+    
+    public function getSingleUser(array $data): User
+    {
+        $query = $this->pdo->prepare("SELECT * FROM User WHERE id = :id");
+
+        $query->execute([
+            "id" => $data['user_id'],
+        ]);
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+
+        $user = new User($data);
+
+        return $user;
+    }
 
     public function register(User $user): void
     {
@@ -39,4 +54,5 @@ class UserManager extends BaseManager
             "roles" => $user->getRole(),
         ]);
     }    
+
 }
