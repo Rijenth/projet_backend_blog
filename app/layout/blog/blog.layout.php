@@ -4,7 +4,7 @@ if (!isset($_SESSION['user'])) {
     header("Location: /login");
     exit();
 }
-$tempId = 69;
+$tempId = 70;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,7 +103,19 @@ $tempId = 69;
         })
 
     // delete post
-    const deleteBtn = document.querySelectorAll('.delete-btn');
+    function deletePost(id) {
+        fetch(`/api/posts/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // if data.res is true, alert user and reload page
+                if (data.res) {
+                    alert('Post deleted');
+                    location.reload();
+                }
+            })
+    }
     </script>
 </body>
 
