@@ -19,7 +19,6 @@ class PostController extends AbstractController
             ],
         );
     }
-
     #[Route('/api/posts', name: 'index', methods: ['GET'])]
     public function index()
     {
@@ -31,7 +30,7 @@ class PostController extends AbstractController
             return http_response_code(500);
         }
 
-        return $posts;
+        echo json_encode($posts);
     }
     /* /api/posts/delete/{id} */
 

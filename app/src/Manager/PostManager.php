@@ -87,11 +87,11 @@ class PostManager extends BaseManager
     {
         $previousPost = $this->getSinglePost($data["post_id"]);
 
-        if(array_key_exists("title", $data)) {
+        if (array_key_exists("title", $data)) {
             $previousPost->setTitle($data["title"]);
         };
 
-        if(array_key_exists("content", $data)) {
+        if (array_key_exists("content", $data)) {
             $previousPost->setContent($data["content"]);
         };
 
@@ -102,7 +102,6 @@ class PostManager extends BaseManager
             "content" => $previousPost->getContent(),
             "post_id" => $previousPost->getId(),
         ]);
-        
     }
 
     /**

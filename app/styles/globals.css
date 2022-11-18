@@ -273,4 +273,10 @@ main {
   font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 1rem;
+}
+#blog_page .blog_posts-wrapper .blog_post .blog_post-author {
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.5;
+  margin-bottom: 1rem;
 }/*# sourceMappingURL=globals.css.map */

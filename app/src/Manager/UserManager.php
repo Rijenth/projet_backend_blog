@@ -67,10 +67,12 @@ class UserManager extends BaseManager
 
         if ($checkPass === false) {
             return http_response_code(404);
-        } else  {
+        } else {
             session_start();
             $_SESSION["userid"] = $user->getId();
             $_SESSION["user"] = $user->getUsername();
+            // TODO: FIX THIS
+            $_SESSION['roles'] = $user->getRole();
         }
 
         echo json_encode([
