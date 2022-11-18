@@ -43,7 +43,6 @@ class SecurityController extends AbstractController
     #[Route('/logout', name: 'logout', methods: ['GET'])]
     public function logout()
     {
-        session_start();
         session_destroy();
         header("Location: /");
         exit;
