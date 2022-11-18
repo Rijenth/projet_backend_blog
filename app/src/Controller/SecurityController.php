@@ -39,4 +39,13 @@ class SecurityController extends AbstractController
         );
         require_once $view;
     }
+
+    #[Route('/logout', name: 'logout', methods: ['GET'])]
+    public function logout()
+    {
+        session_start();
+        session_destroy();
+        header("Location: /");
+        exit;
+    }
 }
