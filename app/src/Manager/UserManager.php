@@ -62,8 +62,8 @@ class UserManager extends BaseManager
         if ($user === false) {
             return http_response_code(404);
         }
+
         $checkPass = $user->passwordMatch($password);
-        var_dump($checkPass);
 
         if ($checkPass === false) {
             return http_response_code(404);
@@ -71,10 +71,11 @@ class UserManager extends BaseManager
             session_start();
             $_SESSION["user"] = $user->getId();
             $_SESSION["useruid"] = $user->getUsername();
-            echo json_encode([
-                "res" => $checkPass
-            ]);
         }
+
+        echo json_encode([
+            "res" => $checkPass
+        ]);
     }
     public function register(User $user): void
     {
@@ -83,7 +84,7 @@ class UserManager extends BaseManager
         $query->execute([
             "username" => $user->getUsername(),
             "email" => $user->getEmail(),
-            "password" => $user->getPassword(),
+            "password" => $user->getHashedPassword(),
             "firstName" => $user->getFirstName(),
             "lastName" => $user->getLastName(),
             "gender" => $user->getGender(),

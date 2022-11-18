@@ -162,13 +162,9 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
      * @param string $password
      * @return $this
      */
-    public function setPassword(string $password, bool $hash = false): User
+    public function setPassword(string $password): User
     {
-        if ($hash) {
-            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        } else {
-            $this->password = $password;
-        }
+        $this->password = $password;
 
         return $this;
     }
@@ -179,7 +175,6 @@ class User extends BaseEntity implements UserInterface, PasswordProtectedInterfa
      */
     public function passwordMatch(string $password): bool
     {
-        var_dump($this);
         return password_verify($password, $this->password);
     }
 
