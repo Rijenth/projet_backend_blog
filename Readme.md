@@ -1,5 +1,7 @@
 # TP3 - Blog en php
 
+<img src="./preview.png" style='border-radius:8px;height:auto;width:100%'>
+
 ## Groupe
 | Prénom  | Nom          |
 | ------- | ------------ |
