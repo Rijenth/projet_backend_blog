@@ -32,6 +32,46 @@ if (!isset($_COOKIE['user'])) {
 
         </div>
     </main>
+    <script>
+    const current_user = <?php echo json_encode($_SESSION['user']) ?>;
+    fetch('/api/posts')
+        .then(response => response.json())
+        .then(posts => {
+            for (post of posts) {
+                const postElement = document.createElement('div');
+                postElement.classList.add('blog_post');
+                if (post.user_id == current_user.id) {
+                    postElement.classList.add('blog_post--current-user');
+                }
+                postElement.innerHTML = `
+                    <div class="blog_post-header">
+                        <h3>${post.title}</h3>
+                        <p>${post.content}</p>
+                    </div>
+                    `;
+                // If the post is from the current user, add a delete button
+                if (post.user_id == current_user.id) {
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('blog_post-delete');
+                    deleteButton.innerHTML = 'Delete';
+                    deleteButton.addEventListener('click', () => {
+                        fetch(`/api/post/delete/${post.id}`, {
+                                method: 'DELETE'
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Remove the post from the DOM
+                                    postElement.remove();
+                                }
+                            })
+                    })
+                    postElement.appendChild(deleteButton);
+                }
+                document.querySelector('.blog_posts-wrapper').appendChild(postElement);
+            }
+        })
+    </script>
 </body>
 
 </html>
