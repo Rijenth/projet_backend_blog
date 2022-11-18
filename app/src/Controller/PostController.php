@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Factory\PDOFactory;
 use App\Manager\PostManager;
 use App\Route\Route;
@@ -31,6 +32,22 @@ class PostController extends AbstractController
         }
 
         echo json_encode($posts);
+    }
+
+    #[Route('/api/posts/create', name: 'index', methods: ['POST'])]
+    public function create()
+    {
+        $postManager = new PostManager(new PDOFactory());
+
+        $post = new Post($_POST);
+
+        try {
+            $postManager->createPost($post);
+        } catch (\PDOException $e) {
+            return http_response_code(500);
+        }
+
+        return http_response_code(201);
     }
     /* /api/posts/delete/{id} */
 

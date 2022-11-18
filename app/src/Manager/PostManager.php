@@ -67,9 +67,8 @@ class PostManager extends BaseManager
      * @param Post $post
      * @return void
      */
-    public function createPost(array $data): void
+    public function createPost(Post $post): void
     {
-        $post = new Post($data);
 
         $query = $this->pdo->prepare("INSERT INTO Post (title, content, user_id) VALUES (:title, :content, :user_id)");
 
