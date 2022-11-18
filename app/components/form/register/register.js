@@ -82,7 +82,7 @@ form.addEventListener("submit", (e) => {
     registerData.append("password", passwordInput.value);
     // gender and role are select inputs with options
     registerData.append("gender", genderInput.value);
-    registerData.append("s", roleInput.value);
+    registerData.append("roles", roleInput.value);
     fetch("/api/register", {
       method: "POST",
       body: registerData,
