@@ -9,6 +9,9 @@
 | Kader   | Bakayoko     |
 | Ethan   | Videau       |
 
+## Info sur l'utilisation de la variable superglobale $_POST
+Les données sont filtrées en front puis envoyé sur l'endpoint. C'est pourquoi, dans les contrôleurs, des classes sont instanciées en utilisant $_POST
+
 ## Au cas ou vous êtes paumé
 
 - `app/components` -> components utilisé sur une page
