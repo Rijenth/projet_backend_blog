@@ -31,6 +31,10 @@ class CommentController extends AbstractController
 
         $_POST['user_id'] = $_SESSION['userid'];
 
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $_POST['content'] = $data['content'];
+
         $comment = new Comment($_POST);
 
         $commentManager = new CommentManager(new PDOFactory());

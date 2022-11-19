@@ -111,23 +111,7 @@ $tempId = 70;
                     commentForm.appendChild(commentBtn);
                     commentSection.appendChild(commentForm);
                     // get all comments for each post
-                    getComments(post.id).then(comments => {
-                        comments.forEach(comment => {
-                            const commentDiv = document.createElement('div');
-                            commentDiv.classList.add('comment');
-                            const commentContent = document.createElement('p');
-                            commentContent.classList.add('comment-content');
-                            commentContent.innerText = comment.content;
-                            const commentAuthor = document.createElement('p');
-                            commentAuthor.classList.add('comment-author');
-                            getAuthor(comment.user_id).then(author => {
-                                commentAuthor.innerText = author;
-                            });
-                            commentDiv.appendChild(commentContent);
-                            commentDiv.appendChild(commentAuthor);
-                            commentSection.appendChild(commentDiv);
-                        });
-                    });
+                    renderComments(post.id, commentSection);
                     // prevent default form submit
                     commentForm.addEventListener('submit', (e) => {
                         e.preventDefault();
@@ -143,23 +127,40 @@ $tempId = 70;
                                 },
                                 body: json
                             })
-                            .then(response => response.json())
-                            .then(data => {
-                                // clear the form
-                                commentForm.reset();
+                            .then(() => {
+                                commentSection.querySelectorAll('.comment').forEach(comment => {
+                                    comment.remove();
+                                });
                                 // render the comments again
-                                renderComments(post.id);
-                            });
+                                renderComments(post.id, commentSection);
+                            })
                     });
                     // append the post div to the posts wrapper
                     postDiv.appendChild(commentSection);
                     postsWrapper.appendChild(postDiv);
-
                 })
 
             })
     }
-
+    const renderComments = (post_id, commentSection) => {
+        getComments(post_id).then(comments => {
+            comments.forEach(comment => {
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+                const commentContent = document.createElement('p');
+                commentContent.classList.add('comment-content');
+                commentContent.innerText = comment.content;
+                const commentAuthor = document.createElement('p');
+                commentAuthor.classList.add('comment-author');
+                getAuthor(comment.user_id).then(author => {
+                    commentAuthor.innerText = author;
+                });
+                commentDiv.appendChild(commentContent);
+                commentDiv.appendChild(commentAuthor);
+                commentSection.appendChild(commentDiv);
+            })
+        })
+    }
     <?php require_once(dirname(__DIR__, 2) . "/layout/blog/blog.layout.js"); ?>
     </script>
 </body>
