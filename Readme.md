@@ -21,4 +21,10 @@
 - `/api/getPosts` -> méthode GET -> Récupère tout les posts
 - `/api/user/{userId}` -> méthode GET -> Récupère toute les données publique d'un utilisateurs
 
+### Pour les commentaires d'un post
+- `/api/posts/{post_id}/comments` -> méthode GET -> Récupère tout les commentaires d'un post
+- `/api/posts/{post_id}/comments` -> méthode POST -> Créer un commentaire pour le post dont l'id est `post_id`
+- `/api/comments/{comment_id}` -> méthode DELETE -> Supprime un commentaire dont l'id est `comment_id`
+
+
   

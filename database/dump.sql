@@ -22,8 +22,8 @@ CREATE TABLE `Comments` (
     `post_id` int(11) NOT NULL,
     PRIMARY KEY (`id`), KEY `user_id` (`user_id`),
     KEY `post_id` (`post_id`),
-    CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
-    CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `Post` (`id`)
+    CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `Post` (`id`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -52,8 +52,8 @@ CREATE TABLE `sub_comments` (
     PRIMARY KEY (`id`), 
     KEY `user_id` (`user_id`),
     KEY `comments_id` (`comments_id`),
-    CONSTRAINT `sub_comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
-    CONSTRAINT `sub_comments_ibfk_2` FOREIGN KEY (`comments_id`) REFERENCES `Comments` (`id`)
+    CONSTRAINT `sub_comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `sub_comments_ibfk_2` FOREIGN KEY (`comments_id`) REFERENCES `Comments` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
