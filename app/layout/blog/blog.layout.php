@@ -56,19 +56,18 @@ $tempId = 70;
             .then(data => {
                 data.forEach(post => {
                     // each post is currently in a string we need to convert it to an object
-                    const postObj = JSON.parse(post);
-                    const author_id = postObj.user_id;
+                    const author_id = post.user_id;
                     // create a new div for each post
                     const postDiv = document.createElement('div');
                     postDiv.classList.add('blog_post');
                     // create a new h3 for each post
                     const postTitle = document.createElement('h3');
                     postTitle.classList.add('blog_post-title');
-                    postTitle.innerText = postObj.title;
+                    postTitle.innerText = post.title;
                     // create a new p for each post
                     const postContent = document.createElement('p');
                     postContent.classList.add('blog_post-content');
-                    postContent.innerText = postObj.content;
+                    postContent.innerText = post.content;
                     // create a new p for each post
                     const postAuthor = document.createElement('p');
                     postAuthor.classList.add('blog_post-author');
@@ -84,7 +83,7 @@ $tempId = 70;
                         deleteBtn.classList.add('delete-btn');
                         deleteBtn.innerText = 'Delete';
                         deleteBtn.addEventListener('click', () => {
-                            deletePost(postObj.id);
+                            deletePost(post.id);
                         });
                         postDiv.appendChild(deleteBtn);
                     }
@@ -92,7 +91,68 @@ $tempId = 70;
                     postDiv.appendChild(postTitle);
                     postDiv.appendChild(postContent);
                     postDiv.appendChild(postAuthor);
+
+                    // comment section
+                    const commentSection = document.createElement('div');
+                    commentSection.classList.add('comment-section');
+                    const commentForm = document.createElement('form');
+                    commentForm.classList.add('comment-form');
+                    // To post a comment we need to fetch the form content to /api/posts/{post_id}/comments
+                    commentForm.action = `/api/posts/${post.id}/comments`;
+                    commentForm.method = 'POST';
+                    const commentInput = document.createElement('input');
+                    commentInput.type = 'text';
+                    commentInput.name = 'content';
+                    commentInput.placeholder = 'Comment';
+                    const commentBtn = document.createElement('button');
+                    commentBtn.type = 'submit';
+                    commentBtn.innerText = 'Comment';
+                    commentForm.appendChild(commentInput);
+                    commentForm.appendChild(commentBtn);
+                    commentSection.appendChild(commentForm);
+                    // get all comments for each post
+                    getComments(post.id).then(comments => {
+                        comments.forEach(comment => {
+                            const commentDiv = document.createElement('div');
+                            commentDiv.classList.add('comment');
+                            const commentContent = document.createElement('p');
+                            commentContent.classList.add('comment-content');
+                            commentContent.innerText = comment.content;
+                            const commentAuthor = document.createElement('p');
+                            commentAuthor.classList.add('comment-author');
+                            getAuthor(comment.user_id).then(author => {
+                                commentAuthor.innerText = author;
+                            });
+                            commentDiv.appendChild(commentContent);
+                            commentDiv.appendChild(commentAuthor);
+                            commentSection.appendChild(commentDiv);
+                        });
+                    });
+                    // prevent default form submit
+                    commentForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        // get the form data
+                        const formData = new FormData(commentForm);
+                        // convert the form data to json
+                        const json = JSON.stringify(Object.fromEntries(formData));
+                        // send the json to the api
+                        fetch(commentForm.action, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: json
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                // clear the form
+                                commentForm.reset();
+                                // render the comments again
+                                renderComments(post.id);
+                            });
+                    });
                     // append the post div to the posts wrapper
+                    postDiv.appendChild(commentSection);
                     postsWrapper.appendChild(postDiv);
 
                 })

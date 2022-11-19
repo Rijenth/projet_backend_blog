@@ -48,4 +48,14 @@ function deletePost(id) {
   // fetch all posts
   renderPosts();
 }
+
+// get comments
+
+const getComments = async (id) => {
+  // the api route is /api/posts/{post_id}/comments
+  const response = await fetch(`/api/posts/${id}/comments`);
+  const data = await response.json();
+  return data;
+};
+
 renderPosts();
