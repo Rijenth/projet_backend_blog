@@ -29,7 +29,7 @@ class CommentController extends AbstractController
     {
         $_POST["post_id"] = $post_id;
 
-        $_POST["user_id"] = $_POST["userId"];
+        $_POST['user_id'] = $_SESSION['userid'];
 
         $comment = new Comment($_POST);
 
