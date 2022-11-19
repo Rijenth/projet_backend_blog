@@ -29,7 +29,7 @@ abstract class BaseEntity
             $data[$property->getName()] = $property->getValue($this);
         }
 
-        return json_encode($data);
+        return $data;
     }
 }
 

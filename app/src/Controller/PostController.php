@@ -20,6 +20,7 @@ class PostController extends AbstractController
             ],
         );
     }
+    
     #[Route('/api/posts', name: 'index', methods: ['GET'])]
     public function index()
     {
@@ -49,7 +50,7 @@ class PostController extends AbstractController
 
         return http_response_code(201);
     }
-    /* /api/posts/delete/{id} */
+    
     #[Route('/api/posts/{id}', name: 'deletePost', methods: ['DELETE'])]
     public function deletePost(string $id)
     {
@@ -64,8 +65,6 @@ class PostController extends AbstractController
         return http_response_code(200);
     }
 
-
-    // Create a route for specific user
     #[Route('/user/{id}', name: 'user', methods: ['GET'])]
     public function user(string $id)
     {
