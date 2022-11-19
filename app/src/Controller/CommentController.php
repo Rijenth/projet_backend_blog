@@ -29,6 +29,8 @@ class CommentController extends AbstractController
     {
         $_POST["post_id"] = $post_id;
 
+        $_POST["user_id"] = $_POST["userId"];
+
         $comment = new Comment($_POST);
 
         $commentManager = new CommentManager(new PDOFactory());
