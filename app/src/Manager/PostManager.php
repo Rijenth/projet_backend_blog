@@ -74,13 +74,16 @@ class PostManager extends BaseManager
      */
     public function createPost(Post $post): void
     {
+        $query = $this->pdo->prepare("INSERT INTO Post (title, content, user_id, publicationDate, illustrationPath) VALUES (:title, :content, :user_id, :publicationDate, :illustrationPath)");
 
-        $query = $this->pdo->prepare("INSERT INTO Post (title, content, user_id) VALUES (:title, :content, :user_id)");
+        $illustrationPath = ($post->getIllustrationPath() === null) ? null : $post->getIllustrationPath();
 
         $query->execute([
             "title" => $post->getTitle(),
             "content" => $post->getContent(),
             "user_id" => $post->getUser_id(),
+            "publicationDate" => date("Y-m-d H:i:s"),
+            "illustrationPath" => $illustrationPath,
         ]);
     }
 
@@ -90,22 +93,27 @@ class PostManager extends BaseManager
      */
     public function updatePost(array $data): void
     {
-        $previousPost = $this->getSinglePost($data["post_id"]);
+        $post = $this->getSinglePost($data["post_id"]);
 
         if (array_key_exists("title", $data)) {
-            $previousPost->setTitle($data["title"]);
+            $post->setTitle($data["title"]);
         };
 
         if (array_key_exists("content", $data)) {
-            $previousPost->setContent($data["content"]);
+            $post->setContent($data["content"]);
+        };
+
+        if (array_key_exists("illustrationPath", $data)) {
+            $post->setContent($data["illustrationPath"]);
         };
 
         $query = $this->pdo->prepare("UPDATE Post SET title = :title, content = :content WHERE id = :post_id");
 
         $query->execute([
-            "title" => $previousPost->getTitle(),
-            "content" => $previousPost->getContent(),
-            "post_id" => $previousPost->getId(),
+            "title" => $post->getTitle(),
+            "content" => $post->getContent(),
+            "post_id" => $post->getId(),
+            "illustrationPath" => $post->getIllustrationPath(),
         ]);
     }
 

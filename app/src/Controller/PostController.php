@@ -35,10 +35,14 @@ class PostController extends AbstractController
         echo json_encode($posts);
     }
 
-    #[Route('/api/posts/create', name: 'index', methods: ['POST'])]
+    #[Route('/api/posts/create', name: 'createPost', methods: ['POST'])]
     public function create()
     {
         $postManager = new PostManager(new PDOFactory());
+
+        if(!isset($_POST["illustrationPath"])) {
+            $_POST['illustrationPath'] = null;
+        } 
 
         $post = new Post($_POST);
 

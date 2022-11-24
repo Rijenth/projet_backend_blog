@@ -8,7 +8,8 @@ class Post extends BaseEntity
     private string $title;
     private string $content;
     private int $user_id;
-
+    private ?string $publicationDate;
+    private ?string $illustrationPath;
     
     /**
      * @return int
@@ -79,6 +80,42 @@ class Post extends BaseEntity
     public function setUser_id(int $user_id): Post
     {
         $this->user_id = $user_id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicationDate()
+    {
+        return $this->publicationDate;
+    }
+
+    /**
+     * @param string $publicationDate
+     * @return Post
+     */
+    public function setPublicationDate(string $publicationDate): Post
+    {
+        $this->publicationDate = $publicationDate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIllustrationPath()
+    {
+        return $this->illustrationPath;
+    }
+
+    /**
+     * @param string $illustrationPath
+     * @return Post
+     */
+    public function setIllustrationPath(?string $illustrationPath): Post
+    {
+        $this->illustrationPath = $illustrationPath;
         return $this;
     }
 }
