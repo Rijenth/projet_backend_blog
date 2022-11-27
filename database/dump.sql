@@ -35,7 +35,7 @@ CREATE TABLE `Post` (
     `title` varchar(255) NOT NULL,
     `content` text, 
     `user_id` int(11) NOT NULL,
-    `publicationDate` datetime NOT NULL
+    `publicationDate` datetime NOT NULL,
     `illustrationPath` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `user_id` (`user_id`),
