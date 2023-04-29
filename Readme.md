@@ -9,9 +9,6 @@
 | Kader   | Bakayoko     |
 | Ethan   | Videau       |
 
-## Info sur l'utilisation de la variable superglobale $_POST
-Les données sont filtrées en front puis envoyé sur l'endpoint. C'est pourquoi, dans les contrôleurs, des classes sont instanciées en utilisant $_POST
-
 ## Au cas ou vous êtes paumé
 
 - `app/components` -> components utilisé sur une page
@@ -22,7 +19,7 @@ Les données sont filtrées en front puis envoyé sur l'endpoint. C'est pourquoi
 - `/api/register` -> méthode POST -> créer un utilisateur
 - `/api/login` -> méthode POST -> login un utilisateur
 - `/api/getPosts` -> méthode GET -> Récupère tout les posts
-- `/api/user/{userId}` -> méthode GET -> Récupère toute les données publique d'un utilisateurs
+- `/api/user/{userId}` -> méthode GET -> Récupère toutes les données publique d'un utilisateur
 
 ### Pour les commentaires d'un post
 - `/api/posts/{post_id}/comments` -> méthode GET -> Récupère tout les commentaires d'un post dont l'id est `post_id`
